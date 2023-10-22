@@ -64,7 +64,7 @@ public class UserServices implements UserDetailsService {
         User user = repository.findByEmail(email);
 
         if (user == null){
-            throw new UsernameNotFoundException("Username " + email + " Not found");
+            throw new UsernameNotFoundException("Email " + email + " Not found");
         }
 
         return user;

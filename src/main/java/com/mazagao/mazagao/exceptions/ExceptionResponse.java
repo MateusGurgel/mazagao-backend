@@ -1,4 +1,4 @@
-package com.mazagao.mazagao.execeptions;
+package com.mazagao.mazagao.exceptions;
 
 import java.io.Serializable;
 import java.util.Date;

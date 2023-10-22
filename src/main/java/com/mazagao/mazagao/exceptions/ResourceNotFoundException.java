@@ -1,14 +1,14 @@
-package com.mazagao.mazagao.execeptions;
+package com.mazagao.mazagao.exceptions;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 @ResponseStatus(HttpStatus.NOT_FOUND )
-public class ResourceNotFound extends RuntimeException{
+public class ResourceNotFoundException extends RuntimeException{
 
     private static final long serialVersionUID = 1L;
 
-    public ResourceNotFound(String x){
+    public ResourceNotFoundException(String x){
         super(x);
     }
 

@@ -1,5 +1,5 @@
-package com.mazagao.mazagao.execeptions.handler;
-import com.mazagao.mazagao.execeptions.ExceptionResponse;
+package com.mazagao.mazagao.exceptions.handler;
+import com.mazagao.mazagao.exceptions.ExceptionResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
