@@ -57,6 +57,18 @@ public class User implements UserDetails, Serializable {
             inverseJoinColumns = {@JoinColumn (name = "id_permission")}
     )
     private List<Permission> permissions;
+    private String calculateRank(){
+        if((this.getDeaths() < 3) || (this.getKills() < 3)) return "Sem Rank";
+        if(score <= 100) return "Inútil";
+        if(score <= 300) return "Desafortunado";
+        if(score <= 500) return "Comum";
+        if(score <= 800) return "Sobrevivente";
+        if(score <= 1200) return "Incansável";
+        if(score <= 1800) return "Iluminado";
+        if(score <= 3200) return "Rei do mato";
+        if(score <= 6400) return "Divino";
+        return "alek gay";
+    }
 
     @Override
     public boolean isAccountNonExpired() {
@@ -137,8 +149,14 @@ public class User implements UserDetails, Serializable {
         return score;
     }
 
+    public void addScore(int score){
+        this.score += score;
+        this.setRank(this.calculateRank());
+    }
+
     public void setScore(int score) {
         this.score = score;
+        this.setRank(this.calculateRank());
     }
 
     public int getDeaths() {
@@ -149,12 +167,22 @@ public class User implements UserDetails, Serializable {
         this.deaths = deaths;
     }
 
+    public void addDeaths(int deaths) {
+        this.deaths += deaths;
+        this.setRank(this.calculateRank());
+    }
+
     public int getKills() {
         return kills;
     }
 
     public void setKills(int kills) {
         this.kills = kills;
+    }
+
+    public void addKills(int kills){
+        this.kills += kills;
+        this.setRank(this.calculateRank());
     }
 
     public Boolean getAccountNonExpired() {

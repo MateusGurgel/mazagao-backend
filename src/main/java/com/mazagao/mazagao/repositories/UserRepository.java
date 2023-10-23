@@ -9,6 +9,7 @@ import java.util.List;
 public interface UserRepository extends JpaRepository<User, Long> {
 
     User findByEmail(String email);
+    User findByUsername(String username);
     @Query("SELECT u FROM User u ORDER BY u.score DESC LIMIT 5")
     List<User> getScoreboard();
 

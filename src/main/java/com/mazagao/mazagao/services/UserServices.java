@@ -26,6 +26,8 @@ public class UserServices implements UserDetailsService {
     @Autowired
     PasswordService passwordService;
 
+
+
     public UserVO create(UserRegisterVO user){
         logger.info("Creating one user");
 
@@ -57,6 +59,49 @@ public class UserServices implements UserDetailsService {
 
     public List<ScoreboardUserVO> getScoreboard(){
         return Mapper.parseListObjects(repository.getScoreboard(), ScoreboardUserVO.class);
+    }
+
+    public void setMurderScore(String killerUsername, String victimUsername){
+
+        logger.info("[murder] " + killerUsername + " -> " + victimUsername);
+
+        var killer = repository.findByUsername(killerUsername);
+        var victim = repository.findByUsername(victimUsername);
+
+        if(killer == null || victim == null){
+            throw new UsernameNotFoundException("Username was not found");
+        }
+
+        Integer pointsLost = (int)((double)(victim.getScore()) / 100.0 * 25);
+
+        logger.info("[murder] " + pointsLost + " points lost");
+
+        killer.addScore(pointsLost);
+        killer.addKills(1);
+
+        victim.addScore(-pointsLost);
+        victim.addDeaths(1);
+
+        repository.save(killer);
+        repository.save(victim);
+
+    }
+
+    public void setOreScore(String username, String oreName){
+        logger.info("[mining] " + username + " -> " + oreName);
+
+        var miner = repository.findByUsername(username);
+        //TODO Get ORE VALUE BASED ON THE TABLE
+        var oreValue = 10;
+
+        if(miner == null){
+            throw new UsernameNotFoundException("Username was not found");
+        }
+
+        miner.addScore(oreValue);
+        logger.info("[mining] " + oreValue + " points earned");
+
+        repository.save(miner);
     }
 
     @Override
