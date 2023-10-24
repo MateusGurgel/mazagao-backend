@@ -57,6 +57,7 @@ public class User implements UserDetails, Serializable {
             inverseJoinColumns = {@JoinColumn (name = "id_permission")}
     )
     private List<Permission> permissions;
+
     private String calculateRank(){
         if((this.getDeaths() < 3) || (this.getKills() < 3)) return "Sem Rank";
         if(score <= 100) return "Inútil";

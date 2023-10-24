@@ -6,7 +6,6 @@ import com.mazagao.mazagao.services.UserServices;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.amqp.core.AcknowledgeMode;
 
 import java.util.logging.Logger;
 
@@ -30,9 +29,21 @@ public class RabbitMQConsumer {
 
         try{
 
-            var murder = jsonObj.get("killer").asText();
-            var victim = jsonObj.get("victim").asText();
-            userServices.setMurderScore(murder, victim);
+            String type = jsonObj.get("type").asText();
+
+            logger.info(type);
+
+            if( "pvp".equals(type) ){
+                var murder = jsonObj.get("killer").asText();
+                var victim = jsonObj.get("victim").asText();
+                userServices.setMurderScore(murder, victim);
+            }
+            else if( "mining".equals(type) ){
+                var miner = jsonObj.get("miner").asText();
+                var ore = jsonObj.get("ore").asText();
+                userServices.setMinerScore(miner, ore);
+            }
+
 
         } catch (Exception e){
             logger.info("Invalid message, " + e.getMessage() + " on : " + jsonObj);

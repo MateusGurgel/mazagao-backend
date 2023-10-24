@@ -18,7 +18,6 @@ import java.util.logging.Logger;
 
 @Service
 public class UserServices implements UserDetailsService {
-    private Logger logger = Logger.getLogger(UserServices.class.getName());
 
     @Autowired
     UserRepository repository;
@@ -26,7 +25,10 @@ public class UserServices implements UserDetailsService {
     @Autowired
     PasswordService passwordService;
 
+    @Autowired
+    ScoreService scoreService;
 
+    private Logger logger = Logger.getLogger(UserServices.class.getName());
 
     public UserVO create(UserRegisterVO user){
         logger.info("Creating one user");
@@ -72,7 +74,7 @@ public class UserServices implements UserDetailsService {
             throw new UsernameNotFoundException("Username was not found");
         }
 
-        Integer pointsLost = (int)((double)(victim.getScore()) / 100.0 * 25);
+        Integer pointsLost = scoreService.calculateMurderScore(victim);
 
         logger.info("[murder] " + pointsLost + " points lost");
 
@@ -87,12 +89,12 @@ public class UserServices implements UserDetailsService {
 
     }
 
-    public void setOreScore(String username, String oreName){
+    public void setMinerScore(String username, String oreName){
         logger.info("[mining] " + username + " -> " + oreName);
 
         var miner = repository.findByUsername(username);
-        //TODO Get ORE VALUE BASED ON THE TABLE
-        var oreValue = 10;
+
+        var oreValue = scoreService.calculateOreScore(oreName);
 
         if(miner == null){
             throw new UsernameNotFoundException("Username was not found");
