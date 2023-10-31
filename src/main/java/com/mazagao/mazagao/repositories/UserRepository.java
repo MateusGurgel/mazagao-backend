@@ -10,6 +10,10 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     User findByEmail(String email);
     User findByUsername(String username);
+
+    Boolean existsByUsername(String username);
+    Boolean existsByEmail(String email);
+
     @Query("SELECT u FROM User u ORDER BY u.score DESC LIMIT 5")
     List<User> getScoreboard();
 

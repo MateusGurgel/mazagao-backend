@@ -1,6 +1,9 @@
 package com.mazagao.mazagao.controller;
 
+import com.mazagao.mazagao.data.vo.UserVO;
+import com.mazagao.mazagao.data.vo.security.PlayerLoginVO;
 import com.mazagao.mazagao.data.vo.security.UserLoginVO;
+import com.mazagao.mazagao.data.vo.security.UserRegisterVO;
 import com.mazagao.mazagao.services.AuthServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -28,6 +31,18 @@ public class AuthController {
         var token = authServices.signin(data);
         if (token == null) return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Invalid client request!");
         return token;
+    }
+
+    @PostMapping(value = "/playerSignIn")
+    public ResponseEntity playerSignIn(@RequestBody PlayerLoginVO data) {
+        var token = authServices.playerSingIn(data);
+        if (token == null) return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Invalid client request!");
+        return token;
+    }
+
+    @PostMapping(value = "/register")
+    public UserVO create(@RequestBody UserRegisterVO registerVO){
+        return authServices.register(registerVO);
     }
 
     @SuppressWarnings("rawtypes")

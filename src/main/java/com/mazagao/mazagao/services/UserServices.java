@@ -1,18 +1,18 @@
 package com.mazagao.mazagao.services;
 
 import com.mazagao.mazagao.data.vo.ScoreboardUserVO;
-import com.mazagao.mazagao.data.vo.security.UserRegisterVO;
 import com.mazagao.mazagao.data.vo.UserVO;
 import com.mazagao.mazagao.mapper.Mapper;
 import com.mazagao.mazagao.models.User;
 import com.mazagao.mazagao.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -23,25 +23,9 @@ public class UserServices implements UserDetailsService {
     UserRepository repository;
 
     @Autowired
-    PasswordService passwordService;
-
-    @Autowired
     ScoreService scoreService;
 
     private Logger logger = Logger.getLogger(UserServices.class.getName());
-
-    public UserVO create(UserRegisterVO user){
-        logger.info("Creating one user");
-
-        var hashedPassword = passwordService.encodePassword(user.getPassword());
-        user.setPassword(hashedPassword);
-
-        var entity = Mapper.parseObject(user, User.class);
-        entity = repository.save(entity);
-
-        var vo = Mapper.parseObject( entity, UserVO.class );
-        return vo;
-    }
 
     public UserVO getUser(Long id) throws UsernameNotFoundException{
 
@@ -57,6 +41,10 @@ public class UserServices implements UserDetailsService {
         var vo = Mapper.parseObject( user, UserVO.class );
 
         return vo;
+    }
+
+    public UserVO userToUserVO(User user){
+        return Mapper.parseObject(user, UserVO.class);
     }
 
     public List<ScoreboardUserVO> getScoreboard(){

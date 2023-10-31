@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.logging.Logger;
 
 import com.mazagao.mazagao.data.vo.security.TokenVO;
+import jakarta.servlet.http.Cookie;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -103,10 +104,14 @@ public class JwtTokenProvider {
     }
 
     public String resolveToken(HttpServletRequest req) {
-        String bearerToken = req.getHeader("Authorization");
+        Cookie[] cookies = req.getCookies();
 
-        if (bearerToken != null && bearerToken.startsWith("Bearer ")) {
-            return bearerToken.substring("Bearer ".length());
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+                if (cookie.getName().equals("token")) {
+                    return cookie.getValue();
+                }
+            }
         }
         return null;
     }
@@ -122,7 +127,6 @@ public class JwtTokenProvider {
         } catch (Exception e) {
             logger.info("Invalid Token provided");
             return false;
-            //throw new InvalidJwtAuthentication("Expired or invalid JWT token!");
         }
     }
 }

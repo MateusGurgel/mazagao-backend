@@ -3,23 +3,23 @@ package com.mazagao.mazagao.data.vo.security;
 import java.io.Serializable;
 import java.util.Objects;
 
-public class UserLoginVO implements Serializable {
+public class PlayerLoginVO implements Serializable {
     private static final long serialVersionID = 1l;
 
-    private String email;
+    private String username;
     private String password;
 
-    public UserLoginVO(String email, String password) {
-        this.email = email;
+    public PlayerLoginVO(String username, String password) {
+        this.username = username;
         this.password = password;
     }
 
-    public String getEmail() {
-        return email;
+    public String getUsername() {
+        return username;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getPassword() {
@@ -34,12 +34,12 @@ public class UserLoginVO implements Serializable {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        UserLoginVO that = (UserLoginVO) o;
-        return Objects.equals(getEmail(), that.getEmail()) && Objects.equals(getPassword(), that.getPassword());
+        PlayerLoginVO that = (PlayerLoginVO) o;
+        return Objects.equals(getUsername(), that.getUsername()) && Objects.equals(getPassword(), that.getPassword());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getEmail(), getPassword());
+        return Objects.hash(getUsername(), getPassword());
     }
 }

@@ -1,13 +1,14 @@
 package com.mazagao.mazagao.data.vo.security;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
 
-public class TokenVO {
+public class TokenVO implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    private String username;
+    private String email;
     private Boolean authenticated;
     private Date created;
     private Date expiration;
@@ -15,7 +16,7 @@ public class TokenVO {
     private String refreshToken;
 
     public TokenVO(String username, Boolean authenticated, Date created, Date expiration, String accessToken, String refreshToken) {
-        this.username = username;
+        this.email = username;
         this.authenticated = authenticated;
         this.created = created;
         this.expiration = expiration;
@@ -25,12 +26,12 @@ public class TokenVO {
 
     public TokenVO (){}
 
-    public String getUsername() {
-        return username;
+    public String getEmail() {
+        return email;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public Boolean getAuthenticated() {
@@ -78,11 +79,11 @@ public class TokenVO {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         TokenVO tokenVO = (TokenVO) o;
-        return Objects.equals(getUsername(), tokenVO.getUsername()) && Objects.equals(getAuthenticated(), tokenVO.getAuthenticated()) && Objects.equals(getCreated(), tokenVO.getCreated()) && Objects.equals(getExpiration(), tokenVO.getExpiration()) && Objects.equals(getAccessToken(), tokenVO.getAccessToken()) && Objects.equals(getRefreshToken(), tokenVO.getRefreshToken());
+        return Objects.equals(getEmail(), tokenVO.getEmail()) && Objects.equals(getAuthenticated(), tokenVO.getAuthenticated()) && Objects.equals(getCreated(), tokenVO.getCreated()) && Objects.equals(getExpiration(), tokenVO.getExpiration()) && Objects.equals(getAccessToken(), tokenVO.getAccessToken()) && Objects.equals(getRefreshToken(), tokenVO.getRefreshToken());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getUsername(), getAuthenticated(), getCreated(), getExpiration(), getAccessToken(), getRefreshToken());
+        return Objects.hash(getEmail(), getAuthenticated(), getCreated(), getExpiration(), getAccessToken(), getRefreshToken());
     }
 }
