@@ -34,12 +34,12 @@ public class RabbitMQConsumer {
             logger.info(type);
 
             if( "pvp".equals(type) ){
-                var murder = jsonObj.get("killer").asText();
-                var victim = jsonObj.get("victim").asText();
+                var murder = jsonObj.get("killer").asText().toLowerCase();
+                var victim = jsonObj.get("victim").asText().toLowerCase();
                 userServices.setMurderScore(murder, victim);
             }
             else if( "mining".equals(type) ){
-                var miner = jsonObj.get("miner").asText();
+                var miner = jsonObj.get("miner").asText().toLowerCase();
                 var ore = jsonObj.get("ore").asText();
                 userServices.setMinerScore(miner, ore);
             }

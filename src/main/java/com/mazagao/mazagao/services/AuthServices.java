@@ -22,7 +22,7 @@ import java.util.logging.Logger;
 @Service
 public class AuthServices {
 
-    private Logger logger = Logger.getLogger(this.getClass().getName());
+    private final Logger logger = Logger.getLogger(this.getClass().getName());
 
     @Autowired
     private AuthenticationManager authenticationManager;
@@ -47,6 +47,8 @@ public class AuthServices {
             throw new BadCredentialsException("Email já utilizado");
         }
 
+        user.setUsername(user.getUsername().toLowerCase());
+
         var hashedPassword = passwordService.encodePassword(user.getPassword());
         user.setPassword(hashedPassword);
 
@@ -56,7 +58,7 @@ public class AuthServices {
         return Mapper.parseObject(entity, UserVO.class);
     }
 
-
+    @SuppressWarnings("rawtypes")
     public ResponseEntity playerSingIn(PlayerLoginVO data){
         try {
             var username = data.getUsername();
@@ -72,11 +74,11 @@ public class AuthServices {
         }
         catch (Exception e){
             throw new BadCredentialsException("Invalid username/password");
-
         }
     }
 
-    public ResponseEntity signin(UserLoginVO data) {
+    @SuppressWarnings("rawtypes")
+    public ResponseEntity signIn(UserLoginVO data) {
 
             try {
                 var email = data.getEmail();
@@ -92,7 +94,6 @@ public class AuthServices {
             }
             catch (Exception e){
                 throw new BadCredentialsException("Invalid email/password");
-
             }
     }
 

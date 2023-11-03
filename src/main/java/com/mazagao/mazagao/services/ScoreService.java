@@ -7,23 +7,22 @@ import org.springframework.stereotype.Service;
 public class ScoreService {
 
     public Integer calculateOreScore(String ore){
-        switch (ore.toLowerCase()){
-            case "coal", "copper":
+        System.out.println(ore);
+        switch (ore){
+            case "COAL_ORE", "COPPER_ORE", "DEEPSLATE_COPPER_ORE":
                 return 1;
-            case "quartz":
+            case "NETHER_QUARTZ_ORE", "NETHER_GOLD_ORE":
                 return 2;
-            case "iron":
+            case "IRON_ORE", "DEEPSLATE_IRON_ORE":
                 return 3;
-            case "lapis":
+            case "LAPIS_ORE", "DEEPSLATE_LAPIS_ORE":
                 return 5;
-            case "gold":
+            case "GOLD_ORE":
                 return 5;
-            case "diamond":
+            case "DIAMOND_ORE", "DEEPSLATE_DIAMOND_ORE":
                 return 60;
-            case "emerald":
+            case "EMERALD_ORE", "DEEPSLATE_EMERALD_ORE":
                 return 80;
-            case "netherite":
-                return 180;
         }
         return 0;
     }

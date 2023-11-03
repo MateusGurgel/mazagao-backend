@@ -28,7 +28,8 @@ public class AuthController {
     public ResponseEntity signin(@RequestBody UserLoginVO data) {
         if (checkIfParamsIsNotNull(data))
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Invalid client request!");
-        var token = authServices.signin(data);
+
+        var token = authServices.signIn(data);
         if (token == null) return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Invalid client request!");
         return token;
     }
