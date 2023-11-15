@@ -59,15 +59,15 @@ public class User implements UserDetails, Serializable {
     private List<Permission> permissions;
 
     private String calculateRank(){
-        if((this.getDeaths() + this.getKills()) < 3) return "Sem Rank";
-        if(score <= 100) return "Inútil";
-        if(score <= 300) return "Desafortunado";
-        if(score <= 500) return "Comum";
-        if(score <= 800) return "Sobrevivente";
-        if(score <= 1200) return "Incansável";
-        if(score <= 1800) return "Iluminado";
-        if(score <= 3200) return "Rei do mato";
-        if(score <= 6400) return "Divino";
+        if(this.getDeaths() + this.getKills() < 3) return "Sem Rank";
+        if(this.score <= 100) return "Inútil";
+        if(this.score <= 300) return "Desafortunado";
+        if(this.score <= 500) return "Comum";
+        if(this.score <= 800) return "Sobrevivente";
+        if(this.score <= 1200) return "Incansável";
+        if(this.score <= 1800) return "Iluminado";
+        if(this.score <= 3200) return "Rei do mato";
+        if(this.score <= 6400) return "Divino";
         return "alek gay";
     }
 
