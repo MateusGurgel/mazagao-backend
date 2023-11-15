@@ -59,7 +59,7 @@ public class User implements UserDetails, Serializable {
     private List<Permission> permissions;
 
     private String calculateRank(){
-        if((this.getDeaths() < 3) || (this.getKills() < 3)) return "Sem Rank";
+        if((this.getDeaths() + this.getKills()) < 3) return "Sem Rank";
         if(score <= 100) return "Inútil";
         if(score <= 300) return "Desafortunado";
         if(score <= 500) return "Comum";
