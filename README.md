@@ -1,7 +1,7 @@
 
 # Mazagão Backend
 
-This is an old private project I created to track points for a Minecraft server I used to play on with my friends. It also generates a scoreboard based on these points.
+This is an old private project I created to track points for a Minecraft server I used to play on with my friends.
 
 
 
